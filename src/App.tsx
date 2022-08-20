@@ -16,6 +16,7 @@ function App() {
     <div className='App'>
       <h1>TapRight</h1>
       <h2>Score: {gameCtx.state.score < 0 ? 0 : gameCtx.state.score}</h2>
+      <h3>High Score: {JSON.parse(localStorage.getItem('score') || '0')}</h3>
       <Badge />
       <div className='card'>
         {!gameCtx.state.isGameOver && <Controls />}
@@ -24,6 +25,7 @@ function App() {
             Start
           </Button>
         )}
+        <p>Use arrow keys to select the right color.</p>
         {gameCtx.state.isGameOver && gameCtx.state.score > -1 && <p>Fail</p>}
       </div>
     </div>

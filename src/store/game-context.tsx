@@ -26,6 +26,20 @@ const GameContexProvider: React.FC<{ children?: React.ReactNode }> = (
 ) => {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE);
 
+  const updateLocalScore = () => {
+    const localScore = localStorage.getItem('score');
+    if (!localScore) {
+      localStorage.setItem('score', JSON.stringify(state.score.toString()));
+      return;
+    }
+
+    console.log(localScore);
+
+    if (state.score <= +localScore) return;
+
+    localStorage.setItem('score', JSON.stringify(state.score.toString()));
+  };
+
   const incrementScore = () => {
     dispatch({
       type: GameActions.INCREMENT,
@@ -34,6 +48,7 @@ const GameContexProvider: React.FC<{ children?: React.ReactNode }> = (
   };
 
   const gameOver = () => {
+    updateLocalScore();
     dispatch({
       type: GameActions.GAMEOVER,
       payload: { ...state, isGameOver: true },

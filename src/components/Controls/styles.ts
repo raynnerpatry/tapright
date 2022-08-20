@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const GridContainer = styled.div`
   display: grid;
+  margin: auto;
   gap: 5px;
   justify-self: center;
   padding: 10px;
