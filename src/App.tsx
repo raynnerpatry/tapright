@@ -18,8 +18,7 @@ function App() {
       <h2>Score: {gameCtx.state.score < 0 ? 0 : gameCtx.state.score}</h2>
       <Badge />
       <div className='card'>
-        {/* {!gameCtx.state.isGameOver && <Controls />} */}
-        <Controls />
+        {!gameCtx.state.isGameOver && <Controls />}
         {gameCtx.state.isGameOver && (
           <Button variant='outlined' onClick={beginHandler}>
             Start

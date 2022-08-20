@@ -9,9 +9,17 @@ const growAnimationUpdate = keyframes`
   to {transform: scale(1);}
 `;
 
-const animationRule = css`
+const animationName = css`
   ${(props: { toggle: boolean }) =>
-    props.toggle ? growAnimation : growAnimationUpdate} 2s;
+    props.toggle ? growAnimation : growAnimationUpdate};
+`;
+
+const backgroundColor = css`
+  ${(props: { color: string }) => props.color};
+`;
+
+const animationDuration = css`
+  ${(props: { duration: number }) => props.duration}s
 `;
 
 export const ColorBadge = styled.div`
@@ -19,8 +27,9 @@ export const ColorBadge = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: ${(props: { color: string }) => props.color};
+  background: ${backgroundColor};
   opacity: 1;
   transform: scale(1);
-  animation: ${animationRule};
+  animation-name: ${animationName};
+  animation-duration: ${animationDuration};
 `;

@@ -3,7 +3,7 @@ import { GameContext } from '../../store/game-context';
 import { Colors } from './Constants/colors';
 import { ColorBadge } from './styles';
 
-const randomValue = () => {
+const randomValue = (): number => {
   return Math.floor(Math.random() * 2);
 };
 
@@ -17,11 +17,20 @@ const Badge: React.FC<{
 
   const initialValue = randomValue();
   const initialState = {
-    duration: 1,
+    duration: 2,
     color: Colors[initialValue],
     value: initialValue,
   };
   const [state, setState] = useState(initialState);
+
+  const calcDuration = (): number => {
+    if (gameCtx.state.score === 0) return initialState.duration;
+    if (gameCtx.state.score === 10) return 1.5;
+    if (gameCtx.state.score === 20) return 1;
+    if (gameCtx.state.score === 30) return 0.5;
+
+    return state.duration;
+  };
 
   useEffect(() => {
     if (gameCtx.state.isGameOver) return;
@@ -30,11 +39,17 @@ const Badge: React.FC<{
     const newValue = randomValue();
     // props.option(newValue);
     gameCtx.updateBadge(newValue);
-    setState({ ...state, color: Colors[newValue], value: newValue });
+    setState({
+      ...state,
+      color: Colors[newValue],
+      value: newValue,
+      duration: calcDuration(),
+    });
 
     const timer = setTimeout(() => {
       gameCtx.gameOver();
-    }, 2 * 1000);
+      setState(initialState);
+    }, state.duration * 1000);
 
     return () => {
       clearTimeout(timer);
@@ -43,7 +58,11 @@ const Badge: React.FC<{
 
   return (
     <div>
-      <ColorBadge toggle={toggleAnimation} color={state.color} />
+      <ColorBadge
+        toggle={toggleAnimation}
+        color={state.color}
+        duration={state.duration}
+      />
     </div>
   );
 };
