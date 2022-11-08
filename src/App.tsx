@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button, Chip, Divider, Grid, Typography } from '@mui/material';
 import { useContext } from 'react';
 import './App.css';
 import Badge from './components/Badge';
@@ -12,22 +12,47 @@ function App() {
     gameCtx.resetGame();
   };
 
+  const highScore = JSON.parse(localStorage.getItem('score') || '0');
+
   return (
     <div className='App'>
-      <h1>TapRight</h1>
-      <h2>Score: {gameCtx.state.score < 0 ? 0 : gameCtx.state.score}</h2>
-      <h3>High Score: {JSON.parse(localStorage.getItem('score') || '0')}</h3>
-      <Badge />
-      <div className='card'>
-        {!gameCtx.state.isGameOver && <Controls />}
-        {gameCtx.state.isGameOver && (
-          <Button variant='outlined' onClick={beginHandler}>
-            Start
-          </Button>
-        )}
-        <p>Use arrow keys to select the right color.</p>
-        {gameCtx.state.isGameOver && gameCtx.state.score > -1 && <p>Fail</p>}
-      </div>
+      <header>
+        <img
+          src='../src/assets/tapright.svg'
+          alt='Tap Right'
+          style={{ maxWidth: '100%' }}
+        />
+      </header>
+      <main>
+        <Chip label={`High Score: ${highScore}`} variant='outlined' />
+
+        <Typography
+          variant='h4'
+          component='p'
+          fontWeight='500'
+          textTransform='uppercase'
+        >
+          {`Score: ${gameCtx.state.score < 0 ? 0 : gameCtx.state.score}`}
+        </Typography>
+        <Badge />
+
+        <div className='card'>
+          {!gameCtx.state.isGameOver && <Controls />}
+          {gameCtx.state.isGameOver && (
+            <>
+              <Button variant='outlined' onClick={beginHandler}>
+                Start
+              </Button>
+              <Typography paddingTop='10px' variant='caption' display='block'>
+                Use arrow keys or tap colored buttons to select the right color
+                before circle got filled.
+              </Typography>
+            </>
+          )}
+
+          {gameCtx.state.isGameOver && gameCtx.state.score > -1 && <p>Fail</p>}
+        </div>
+      </main>
     </div>
   );
 }

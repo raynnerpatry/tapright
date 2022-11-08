@@ -33,8 +33,6 @@ const GameContexProvider: React.FC<{ children?: React.ReactNode }> = (
       return;
     }
 
-    console.log(localScore);
-
     if (state.score <= +localScore) return;
 
     localStorage.setItem('score', JSON.stringify(state.score.toString()));

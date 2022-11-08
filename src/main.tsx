@@ -5,6 +5,9 @@ import GameContexProvider from './store/game-context';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 const darkTheme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat'].join(','),
+  },
   palette: {
     mode: 'dark',
     background: {

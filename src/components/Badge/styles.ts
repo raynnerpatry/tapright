@@ -14,7 +14,7 @@ const animationName = css`
     props.toggle ? growAnimation : growAnimationUpdate};
 `;
 
-const backgroundColor = css`
+const color = css`
   ${(props: { color: string }) => props.color};
 `;
 
@@ -27,9 +27,17 @@ export const ColorBadge = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: ${backgroundColor};
+  background: ${color};
   opacity: 1;
   transform: scale(1);
   animation-name: ${animationName};
   animation-duration: ${animationDuration};
+`;
+
+export const WrapperBadge = styled.div`
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  background: #00000030;
+  border-radius: 50%;
 `;
